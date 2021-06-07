@@ -64,13 +64,13 @@ const update = async (req, res) => {
         // // save the new book info
         // const savedBook = await book.save();
 
-        const updatedBook = await Book.update({ title: req.body.title }, req.body);
+        const updatedBook = await Book.update({ title: req.body.title }, req.body); // updating the book
         const book = await Book.findOne({ title: req.body.title });
 
         console.log(updatedBook); // { n: 1, nModified: 0, ok: 1 }
         console.log(book); // a book object 
 
-        res.redirect(`/api/books/${updatedBook.id}`);
+        res.redirect(`/api/books/${book.id}`);
 
     } catch (error) {
         console.log('Error inside of UPDATE route');
@@ -80,7 +80,17 @@ const update = async (req, res) => {
 }
 
 const deleteBook = async (req, res) => {
-    
+    const { id } = req.params;
+    try {
+        console.log(id);
+        const result = await Book.findByIdAndRemove(id);
+        console.log(result);
+        res.redirect('/api/books');
+    } catch (error) {
+        console.log('inside of DELETE route');
+        console.log(error);
+        return res.status(400).json({ message: 'Book was not deleted. Please try again...' });
+    }
 }
 
 // GET api/books/test (Public)
@@ -96,6 +106,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), show);
 router.post('/', passport.authenticate('jwt', { session: false }), create);
 // PUT -> /api/books
 router.put('/', passport.authenticate('jwt', { session: false }), update);
-// router.delete('/books/:id', passport.authenticate('jwt', { session: false }), deleteBook);
+// DELETE => /api/books/:id
+router.delete('/:id', passport.authenticate('jwt', { session: false }), deleteBook);
 
 module.exports = router;
