@@ -16,6 +16,8 @@ app.use(express.json());
 
 // Initialize Passport and use config file
 app.use(passport.initialize());
+require('./config/passport')(passport);
+
 
 // Home route
 app.get('/', (req, res) => {
