@@ -16,6 +16,7 @@ const test = async (req, res) => {
 }
 
 // routes
+// GET -> /api/users/test
 router.get('/test', test);
 
 // POST api/users/register (Public)
