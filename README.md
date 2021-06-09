@@ -46,3 +46,58 @@ Notes:
 | POST | /api/users/signup | users.js | Signup data |
 | GET | /api/users/profile | users.js | Profile data |
 | GET | /api/users/all-users | users.js | Get all users |
+
+### Alternate `signup` Controller
+This alernate `controller` is returning back a token to allow the user to interact with the app immediately with a token instead of having the user login right after signing up.
+
+```js
+const signup = async (req, res) => {
+    console.log('--- INSIDE OF SIGNUP ---');
+    console.log('req.body =>', req.body);
+    const { name, email, password } = req.body;
+
+    try {
+        // see if a user exist in the database by email
+        const user = await User.findOne({ email });
+
+        // if a user exist return 400 error and message
+        if (user) {
+            return res.status(400).json({ message: 'Email already exists' });
+        } else {
+            console.log('Create new user');
+            let saltRounds = 12;
+            let salt = await bcrypt.genSalt(saltRounds);
+            let hash = await bcrypt.hash(password, salt);
+
+            const newUser = new User({
+                name,
+                email,
+                password: hash
+            });
+
+            const savedNewUser = await newUser.save();
+
+            const payload = {
+                id: savedNewUser.id,
+                email: savedNewUser.email,
+                name: savedNewUser.name,
+            }
+
+            // token is generated
+            let token = await jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 });
+            let legit = await jwt.verify(token, JWT_SECRET, { expiresIn: 60 });
+
+            res.json({
+                success: true,
+                token: `Bearer ${token}`,
+                userData: legit
+            });
+
+        }
+    } catch (error) {
+        console.log('Error inside of /api/users/signup');
+        console.log(error);
+        return res.status(400).json({ message: 'Error occurred. Please try again...'});
+    }
+}
+```
