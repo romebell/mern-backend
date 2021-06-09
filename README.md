@@ -48,7 +48,7 @@ Notes:
 | GET | /api/users/all-users | users.js | Get all users |
 
 ### Alternate `signup` Controller
-This alernate `controller` is returning back a token to allow the user to interact with the app immediately with a token instead of having the user login right after signing up.
+This alternate `controller` is returning back a token to allow the user to interact with the app immediately with a token instead of having the user login right after signing up.
 
 ```js
 const signup = async (req, res) => {
