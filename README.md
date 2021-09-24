@@ -101,3 +101,14 @@ const signup = async (req, res) => {
     }
 }
 ```
+
+## `users.js`
+```js
+require('dotenv').config();
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const JWT_SECRET = process.env.JWT_SECRET;
+```
