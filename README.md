@@ -3,18 +3,20 @@
 This is a code along for MERN Auth
 
 Notes:
-1. Set up server
-2. Test home route
-3. Make api folder and test /test route
-2. Set up models
-3. Setup passport strategy
-4. Intialize passport and pass passport as arguemnt to config
-5. Make controllers for user
-6. Test each one after completing it.
-7. /test, /register, /login, /profile
-8. Make route for each controller
-9. Test other controllers in the box
-10. Make template, add models and routes
+- [ ] Set up server
+- [ ] Test home route
+- [ ] Set up models folder and `index.js`
+- [ ] Add a `.env` with your `MONGO_URI`
+```text
+MONGO_URI=mongodb://localhost:27017/myApp
+```
+- [ ] Set up `User` models
+- [ ] Make controllers folder and test /test route
+- [ ] Setup passport strategy
+- [ ] Intialize passport and pass passport as arguemnt to config
+- [ ] Make controllers and routes for user
+   - [ ] /test, /register, /login, /profile
+   - [ ] Test each one after completing it in Postman
 
 ## What it includes
 
@@ -41,11 +43,11 @@ Notes:
 | Method | Path | Location | Purpose |
 | ------ | ---------------- | -------------- | ------------------- |
 | GET | / | app.js | Server file |
-| GET | /api/users/test | users.js | Return json data |
-| POST | /api/users/login | users.js | Login data |
-| POST | /api/users/signup | users.js | Signup data |
-| GET | /api/users/profile | users.js | Profile data |
-| GET | /api/users/all-users | users.js | Get all users |
+| GET | /users/test | users.js | Return json data |
+| POST | /users/login | users.js | Login data |
+| POST | /users/signup | users.js | Signup data |
+| GET | /users/profile | users.js | Profile data |
+| GET | /users/all-users | users.js | Get all users |
 
 ### Alternate `signup` Controller
 This alternate `controller` is returning back a token to allow the user to interact with the app immediately with a token instead of having the user login right after signing up.
