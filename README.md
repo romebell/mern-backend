@@ -28,7 +28,7 @@ Notes:
 
 | Column Name | Data Type | Notes |
 | --------------- | ------------- | ------------------------------ |
-| id | Integer | Serial Primary Key, Auto-generated |
+| _id | Integer | Serial Primary Key, Auto-generated |
 | name | String | Must be provided |
 | email | String | Must be unique / used for login |
 | password | String | Stored as a hash |
